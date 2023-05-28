@@ -38,9 +38,7 @@ public class FileTest {
      */
     @Test
     public void bufferedReaderReadFile() {
-        File file = new File(System.getProperty("user.dir") +
-                File.separator + "src" + File.separator + "test" + File.separator + "resources"
-                + File.separator + "myFile.txt");
+        File file = new File(path+ "myFile.txt");
         //try-with-resources 是一种 Java 编程语言结构，可以在代码块结束时自动关闭打开的资源（如文件、数据库连接等）
         //try(BufferedReader br = new BufferedReader(new FileReader("filename.txt"))) {
         try (BufferedReader br = new BufferedReader(
@@ -63,9 +61,7 @@ public class FileTest {
      */
     @Test
     public void bufferedWriterWriterFile() {
-        File file = new File(System.getProperty("user.dir") +
-                File.separator + "src" + File.separator + "test" + File.separator + "resources"
-                + File.separator + "myFile.txt");
+        File file = new File(path+ "myFile.txt");
 //try-with-resources 是一种 Java 编程语言结构，可以在代码块结束时自动关闭打开的资源（如文件、数据库连接等）
         //这里的true表示追加而不是覆盖
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(file, true))) {
@@ -99,9 +95,7 @@ public class FileTest {
         //mock User对象
         User user = JMockData.mock(User.class);
         //使用对象输出流将该对象序列化到文件“User.txt”中
-        try (FileOutputStream fileOut = new FileOutputStream(System.getProperty("user.dir") +
-                File.separator + "src" + File.separator + "test" + File.separator + "resources"
-                + File.separator + "User.txt");
+        try (FileOutputStream fileOut = new FileOutputStream(path+ "User.txt");
              ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
             out.writeObject(user);
         } catch (IOException e) {
@@ -136,9 +130,7 @@ public class FileTest {
     @Test
     public void dataOutputStreamTest() {
         //try (DataOutputStream dos = new DataOutputStream(new FileOutputStream("data.bin"))) {
-        try (DataOutputStream dos = new DataOutputStream(Files.newOutputStream(Paths.get(System.getProperty("user.dir") +
-                File.separator + "src" + File.separator + "test" + File.separator + "resources"
-                + File.separator + "data.bin")))) {
+        try (DataOutputStream dos = new DataOutputStream(Files.newOutputStream(Paths.get(path+ "data.bin")))) {
             dos.writeInt(42);
             dos.writeDouble(3.14);
             dos.writeUTF("Hello, World!");
@@ -156,9 +148,7 @@ public class FileTest {
     @Test
     public void dataInputStreamTest() {
         //try (DataInputStream dis = new DataInputStream(new FileInputStream("data.bin"))) {
-        try (DataInputStream dis = new DataInputStream(Files.newInputStream(Paths.get(System.getProperty("user.dir") +
-                File.separator + "src" + File.separator + "test" + File.separator + "resources"
-                + File.separator + "data.bin")))) {
+        try (DataInputStream dis = new DataInputStream(Files.newInputStream(Paths.get(path + "data.bin")))) {
             int intValue = dis.readInt();
             double doubleValue = dis.readDouble();
             String stringValue = dis.readUTF();
