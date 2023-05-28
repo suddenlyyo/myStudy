@@ -27,7 +27,9 @@ public class FileTest {
 //    FileReader 和 FileWriter：用于读写文件中的字符数据。
 //    BufferedReader 和 BufferedWriter：与 FileReader 和 FileWriter 搭配使用，加快读写速度。
 //    InputStreamReader 和 OutputStreamWriter：将字节流转换为字符流，可以指定字符编码方式。
-
+    private final String path=System.getProperty("user.dir") +
+        File.separator + "src" + File.separator + "test" + File.separator + "resources"
+        + File.separator;
     /**
      * BufferedReader从字符输入流中读取文本，缓冲字符，以便高效读取字符、数组和行。
      *
@@ -116,9 +118,7 @@ public class FileTest {
     @Test
     public void deserializationTest() {
         User user = null;
-        try (FileInputStream fileIn = new FileInputStream(System.getProperty("user.dir") +
-                File.separator + "src" + File.separator + "test" + File.separator + "resources"
-                + File.separator + "User.txt");
+        try (FileInputStream fileIn = new FileInputStream(path + "User.txt");
              ObjectInputStream in = new ObjectInputStream(fileIn)) {
             user = (User) in.readObject();
             System.out.println(user);
