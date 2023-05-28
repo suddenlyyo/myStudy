@@ -156,7 +156,9 @@ public class FileTest {
     @Test
     public void dataInputStreamTest() {
         //try (DataInputStream dis = new DataInputStream(new FileInputStream("data.bin"))) {
-        try (DataInputStream dis = new DataInputStream(Files.newInputStream(Paths.get("data.bin")))) {
+        try (DataInputStream dis = new DataInputStream(Files.newInputStream(Paths.get(System.getProperty("user.dir") +
+                File.separator + "src" + File.separator + "test" + File.separator + "resources"
+                + File.separator +"data.bin")))) {
             int intValue = dis.readInt();
             double doubleValue = dis.readDouble();
             String stringValue = dis.readUTF();
