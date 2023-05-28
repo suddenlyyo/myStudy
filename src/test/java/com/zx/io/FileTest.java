@@ -79,8 +79,8 @@ public class FileTest {
             throw new RuntimeException(e);
         }
     }
-    //Java 缓冲字符是指使用缓冲区来读取或写入字符数据，以提高I/O性能的技术。一般使用 BufferedReader 和 BufferedWriter 类来实现缓冲字符操作，它们可以分别用于读取和写入字符数据。
-    // 通过缓冲字符操作，可以有效减少磁盘或网络I/O的次数，从而提高程序的运行效率。
+//Java 缓冲字符是指使用缓冲区来读取或写入字符数据，以提高I/O性能的技术。一般使用 BufferedReader 和 BufferedWriter 类来实现缓冲字符操作，它们可以分别用于读取和写入字符数据。
+// 通过缓冲字符操作，可以有效减少磁盘或网络I/O的次数，从而提高程序的运行效率。
 
 //    Java对象输入输出流可以通过实现Serializable接口来进行序列化和反序列化操作。
 //    在序列化时，使用ObjectOutputStream将Java对象转换为字节序列并输出到文件或网络中；
@@ -158,7 +158,7 @@ public class FileTest {
         //try (DataInputStream dis = new DataInputStream(new FileInputStream("data.bin"))) {
         try (DataInputStream dis = new DataInputStream(Files.newInputStream(Paths.get(System.getProperty("user.dir") +
                 File.separator + "src" + File.separator + "test" + File.separator + "resources"
-                + File.separator +"data.bin")))) {
+                + File.separator + "data.bin")))) {
             int intValue = dis.readInt();
             double doubleValue = dis.readDouble();
             String stringValue = dis.readUTF();
