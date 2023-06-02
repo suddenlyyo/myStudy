@@ -73,7 +73,7 @@ public class DateTest {
     }
 
     @Test
-    void formatStrToDateTest() {
+    public void formatStrToDateTest() {
         String dateTimeStr = "2016-10-25";
         DateTimeFormatter formatter02 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate localDate = LocalDate.parse(dateTimeStr, formatter02);
