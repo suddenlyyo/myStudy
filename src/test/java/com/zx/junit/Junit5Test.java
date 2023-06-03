@@ -49,6 +49,12 @@ public class Junit5Test {
                 () -> assertEquals(-6, calculator.multiply(2, -3))
         );
     }
+    //运行3次，控制台会现场测试名称
+    @RepeatedTest(value = 3, name = "{displayName} - 第 {currentRepetition}/{totalRepetitions} 次")
+    @DisplayName("测试 myTest 方法")
+    void myTest() {
+        System.out.println("测试 myTest 方法");
+    }
 //  注解
 //    @Test：标记测试方法。
 //    @BeforeEach：在每次测试之前运行的方法。

@@ -19,21 +19,7 @@ import java.util.List;
  * @create: 2022-10-18 09:04
  */
 public class DateTest {
-    public static void main(String[] args) throws ParseException {
 
-        LocalDateTime parse = LocalDateTime.parse("2022-10-18 09:01:01",
-                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        int minute = parse.getMinute();
-        Date date = new Date();
-//        Instant instant = date.toInstant();
-//        ZoneId zoneId = ZoneId.systemDefault();
-//        int minute1 = instant.atZone(zoneId).toLocalDateTime().getMinute();
-        LocalDateTime localDateTime = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-        Duration between = Duration.between(parse, localDateTime);
-        long diffMinutes = between.toMinutes();
-        System.out.println(diffMinutes);
-
-    }
 
     @Test
     public void getDateListByMonth() {
@@ -55,21 +41,22 @@ public class DateTest {
         Date currentDate = new Date();
         try {
             currentDate = dateFormat.parse(dateFormat.format(currentDate));
-        } catch (ParseException e) {
+            for (int j = 1; j <= count; j++) {
+                Date date = cal.getTime();
+                String format = dateFormat.format(date);
+                //如果两个日期相等，则返回值为0。
+                //如果Date在date参数之后，则返回值大于0。
+                //如果Date在date参数之前，则返回值小于0。
+                if (currentDate.compareTo(date) > 0) {
+                    System.out.println(format);
+                    fullDayList.add(format);
+                }
+                cal.add(Calendar.DAY_OF_MONTH, 1);
+            }
+        } catch (ParseException ignored) {
 
         }
-        for (int j = 1; j <= count; j++) {
-            Date date = cal.getTime();
-            String format = dateFormat.format(date);
-            //如果两个日期相等，则返回值为0。
-            //如果Date在date参数之后，则返回值大于0。
-            //如果Date在date参数之前，则返回值小于0。
-            if (currentDate.compareTo(date) > 0) {
-                System.out.println(format);
-                fullDayList.add(format);
-            }
-            cal.add(Calendar.DAY_OF_MONTH, 1);
-        }
+
     }
 
     @Test
@@ -93,7 +80,7 @@ public class DateTest {
      *
      * @param dateTimeStr 需要格式化的年月日时分秒字符串
      * @param pattern     匹配的格式
-     * @return
+     * @return java.util.Date
      * @author: zhou  xun
      * @since: 2023-04-25
      */
