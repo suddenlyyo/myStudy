@@ -56,7 +56,7 @@ public class DateTest {
         } catch (ParseException ignored) {
 
         }
-
+        fullDayList.forEach(System.out::println);
     }
 
     @Test
