@@ -1,10 +1,10 @@
 package com.zx.transactional;
 
+import com.zx.util.SpringContextUtil;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
@@ -35,9 +35,6 @@ public class TransactionAspect {
 //
 // 它们的作用是在目标方法执行前、执行后或者异常抛出时，插入一段额外的代码逻辑。
 // 它们可以与其他 Java 框架结合使用，如 Spring AOP 和 Hibernate AOP 等。
-    @Autowired
-    private PlatformTransactionManager transactionManager;
-
     @Pointcut("@annotation(org.springframework.transaction.annotation.Transactional)")
     public void transactions() {
     }
@@ -48,6 +45,7 @@ public class TransactionAspect {
     //如果应用程序中的类没有被编译时织入，则事务可能会失效
     @Around("transactions()")
     public Object around(ProceedingJoinPoint point) throws Throwable {
+        PlatformTransactionManager transactionManager = SpringContextUtil.getBean(PlatformTransactionManager.class);
         TransactionStatus status = transactionManager.getTransaction(new DefaultTransactionDefinition());
         try {
             Object result = point.proceed();
