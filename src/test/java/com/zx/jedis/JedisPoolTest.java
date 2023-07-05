@@ -27,6 +27,7 @@ public class JedisPoolTest extends MyStudyApplicationTest {
         //可存储指定过期时间的数据
         jedis.setex("activeCode", 20, "valueString");
         System.out.println(username);
+        jedis.close();
     }
 
 }
