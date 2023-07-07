@@ -60,6 +60,16 @@ public class DateTest {
     }
 
     @Test
+    public void compareToTest() {
+        String dateTimeStr1 = "2016-10-25";
+        String dateTimeStr2 = "2016-10-26";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate localDate1 = LocalDate.parse(dateTimeStr1, formatter);
+        LocalDate localDate2 = LocalDate.parse(dateTimeStr2, formatter);
+        System.out.println(localDate1.compareTo(localDate2));
+    }
+
+    @Test
     public void formatStrToDateTest() {
         String dateTimeStr = "2016-10-25";
         DateTimeFormatter formatter02 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
