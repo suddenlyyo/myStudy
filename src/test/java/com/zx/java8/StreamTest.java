@@ -1,12 +1,12 @@
 package com.zx.java8;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.util.StringUtils;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
-
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -58,7 +58,7 @@ public class StreamTest {
         List<Integer> numbers = Arrays.asList(5, 3, 1, 4, 2);
         // 对数字进行排序
         List<Integer> result = numbers.stream().sorted().collect(Collectors.toList());
-        Consumer<Integer> consumer = n -> System.out.println(n);
+        Consumer<Integer> consumer = System.out::println;
         result.forEach(consumer);
         assertEquals(5, result.size());
         assertEquals(Integer.valueOf(1), result.get(0));
@@ -92,6 +92,6 @@ public class StreamTest {
     public void testForEach() {
         List<String> words = Arrays.asList("apple", "banana", "cherry", "date");
         // 输出每个单词
-        words.stream().forEach(System.out::println);
+        words.stream().filter(str->!StringUtils.isEmpty(str)).forEach(System.out::println);
     }
 }
