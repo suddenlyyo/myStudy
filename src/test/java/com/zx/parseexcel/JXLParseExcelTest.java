@@ -1,4 +1,4 @@
-package com.zx.parseExcel;
+package com.zx.parseexcel;
 
 import jxl.Cell;
 import jxl.Sheet;
