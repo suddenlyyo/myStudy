@@ -1,6 +1,7 @@
 package com.zx.java8;
 
 
+import com.alibaba.fastjson.JSONObject;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -56,6 +57,16 @@ public class Java8Test {
         Optional<String> value = Optional.ofNullable(map.get("key"));
         assertTrue(value.isPresent());
         assertEquals("value", value.get());
+    }
+
+    @Test
+    public void testOptionalofNullable() {
+        JSONObject jsonObject = new JSONObject();
+        // Optional.ofNullable(null) 等价于 Optional.empty()
+        jsonObject.put("a", Optional.empty());
+        jsonObject.put("b", Optional.ofNullable(null).orElse(""));
+        jsonObject.put("c", Optional.ofNullable("1").orElse(""));
+        System.out.println(jsonObject);
     }
 
     @Test
