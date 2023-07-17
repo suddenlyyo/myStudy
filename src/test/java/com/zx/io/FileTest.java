@@ -15,7 +15,7 @@ import java.nio.file.Paths;
  * @create: 2023-05-28 15:10
  */
 public class FileTest {
-//    Java IO 类型分为字节流和字符流。
+    //    Java IO 类型分为字节流和字符流。
 //    字节流：
 //    InputStream 和 OutputStream：用于读写字节数据，是所有字节输入输出流的父类。
 //    FileInputStream 和 FileOutputStream：用于读写文件中的字节数据。
@@ -27,9 +27,10 @@ public class FileTest {
 //    FileReader 和 FileWriter：用于读写文件中的字符数据。
 //    BufferedReader 和 BufferedWriter：与 FileReader 和 FileWriter 搭配使用，加快读写速度。
 //    InputStreamReader 和 OutputStreamWriter：将字节流转换为字符流，可以指定字符编码方式。
-    private final String path=System.getProperty("user.dir") +
-        File.separator + "src" + File.separator + "test" + File.separator + "resources"
-        + File.separator;
+    private final String path = System.getProperty("user.dir") +
+            File.separator + "src" + File.separator + "test" + File.separator + "resources"
+            + File.separator;
+
     /**
      * BufferedReader从字符输入流中读取文本，缓冲字符，以便高效读取字符、数组和行。
      *
@@ -38,7 +39,7 @@ public class FileTest {
      */
     @Test
     public void bufferedReaderReadFile() {
-        File file = new File(path+ "myFile.txt");
+        File file = new File(path + "myFile.txt");
         //try-with-resources 是一种 Java 编程语言结构，可以在代码块结束时自动关闭打开的资源（如文件、数据库连接等）
         //try(BufferedReader br = new BufferedReader(new FileReader("filename.txt"))) {
         try (BufferedReader br = new BufferedReader(
@@ -61,7 +62,7 @@ public class FileTest {
      */
     @Test
     public void bufferedWriterWriterFile() {
-        File file = new File(path+ "myFile.txt");
+        File file = new File(path + "myFile.txt");
 //try-with-resources 是一种 Java 编程语言结构，可以在代码块结束时自动关闭打开的资源（如文件、数据库连接等）
         //这里的true表示追加而不是覆盖
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(file, true))) {
@@ -95,7 +96,7 @@ public class FileTest {
         //mock User对象
         User user = JMockData.mock(User.class);
         //使用对象输出流将该对象序列化到文件“User.txt”中
-        try (FileOutputStream fileOut = new FileOutputStream(path+ "User.txt");
+        try (FileOutputStream fileOut = new FileOutputStream(path + "User.txt");
              ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
             out.writeObject(user);
         } catch (IOException e) {
@@ -130,7 +131,7 @@ public class FileTest {
     @Test
     public void dataOutputStreamTest() {
         //try (DataOutputStream dos = new DataOutputStream(new FileOutputStream("data.bin"))) {
-        try (DataOutputStream dos = new DataOutputStream(Files.newOutputStream(Paths.get(path+ "data.bin")))) {
+        try (DataOutputStream dos = new DataOutputStream(Files.newOutputStream(Paths.get(path + "data.bin")))) {
             dos.writeInt(42);
             dos.writeDouble(3.14);
             dos.writeUTF("Hello, World!");
@@ -158,6 +159,24 @@ public class FileTest {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    /**
+     * 文件名解析
+     *
+     * @author: zhou  xun
+     * @since: 2023-07-17
+     */
+    @Test
+    public void fileNameParseTest() {
+        String filePath = "private/8181384fa7ba11e990fe7cd30b8a9fe/pay/hisBi1/wechat_service/1510052711/1507138501_1510052711_All_20230301_20230331.csv";
+        String fullFileName = filePath.substring(filePath.lastIndexOf("/") + 1);
+        String fileName = filePath.substring(filePath.lastIndexOf("/") + 1, filePath.length() - 4);
+        // String[] fileSplit = fileName.split("_");
+        //  Arrays.stream(fileSplit).forEach(System.out::println);
+        String fileSuffix = fullFileName.substring(fullFileName.length() - 3);
+        System.out.println("文件后缀" + fileSuffix);
+        System.out.println("文件名" + fileName);
     }
 }
 
