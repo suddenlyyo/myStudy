@@ -20,6 +20,7 @@ import java.util.stream.Stream;
  * @create: 2023-07-11 10:16
  */
 public class JXLParseExcelTest {
+    // 注意 如果文件开始是xlsx后缀，直接改成xls会导致解析异常
     public static void main(String[] args) {
         try (InputStream inputStream = Files.newInputStream(Paths.get(System.getProperty("user.dir") +
                 File.separator + "src" + File.separator + "test" + File.separator + "resources" + File.separator + "账单导入模板.xls"))) {
@@ -38,7 +39,7 @@ public class JXLParseExcelTest {
                 Cell[] cells = sheet.getRow(i);
                 for (int j = 0; j < cells.length; j++) {
                     Cell cell = cells[j];
-                    if(!StringUtils.isEmpty(cell.getContents())) {
+                    if (!StringUtils.isEmpty(cell.getContents())) {
                         System.out.println(cell.getContents());
                     }
                 }
