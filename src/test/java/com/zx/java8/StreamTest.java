@@ -1,12 +1,16 @@
 package com.zx.java8;
 
+import com.github.jsonzou.jmockdata.JMockData;
+import com.zx.modle.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.util.StringUtils;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -18,16 +22,23 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 public class StreamTest {
     @Test
-    public void testFilter() {
+    public void filterTest() {
         List<String> words = Arrays.asList("apple", "banana", "cherry", "date");
         // 过滤出以字母 a 开头的单词
         List<String> result = words.stream().filter(word -> word.startsWith("a")).collect(Collectors.toList());
         assertEquals(1, result.size());
         assertEquals("apple", result.get(0));
+    }    @Test
+    public void groupByTest() {
+        List<User> userList = Stream.of(JMockData.mock(User.class), JMockData.mock(User.class), JMockData.mock(User.class)).collect(Collectors.toList());
+        Map<String, List<User>> map = userList.stream().collect(Collectors.groupingBy(User::getName));
+        map.forEach((s, users) -> {
+            System.out.printf("key is %s,value is %s%n",s,users);
+        });
     }
 
     @Test
-    public void testMap() {
+    public void mapTest() {
         List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
         // 将每个数字平方
         List<Integer> squares = numbers.stream().map(n -> n * n).collect(Collectors.toList());
@@ -40,7 +51,7 @@ public class StreamTest {
     }
 
     @Test
-    public void testFlatMap() {
+    public void flatMapTest() {
         List<List<Integer>> numbers = Arrays.asList(Arrays.asList(1, 2), Arrays.asList(3, 4), Arrays.asList(5, 6));
         // 将二维数组转为一维数组
         List<Integer> result = numbers.stream().flatMap(List::stream).collect(Collectors.toList());
@@ -54,7 +65,7 @@ public class StreamTest {
     }
 
     @Test
-    public void testSorted() {
+    public void sortedTest() {
         List<Integer> numbers = Arrays.asList(5, 3, 1, 4, 2);
         // 对数字进行排序
         List<Integer> result = numbers.stream().sorted().collect(Collectors.toList());
@@ -69,7 +80,7 @@ public class StreamTest {
     }
 
     @Test
-    public void testDistinct() {
+    public void distinctTest() {
         List<Integer> numbers = Arrays.asList(1, 2, 2, 3, 3, 3, 4, 4, 4, 4);
         // 去除数字中的重复元素
         List<Integer> result = numbers.stream().distinct().collect(Collectors.toList());
@@ -81,7 +92,7 @@ public class StreamTest {
     }
 
     @Test
-    public void testReduce() {
+    public void reduceTest() {
         List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
         // 对数字求和
         int sum = numbers.stream().reduce(0, Integer::sum);
@@ -89,7 +100,7 @@ public class StreamTest {
     }
 
     @Test
-    public void testForEach() {
+    public void forEachTest() {
         List<String> words = Arrays.asList("apple", "banana", "cherry", "date");
         // 输出每个单词
         words.stream().filter(str->!StringUtils.isEmpty(str)).forEach(System.out::println);
