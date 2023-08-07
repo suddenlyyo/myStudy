@@ -5,6 +5,7 @@ import com.zx.modle.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +29,47 @@ public class StreamTest {
         List<String> result = words.stream().filter(word -> word.startsWith("a")).collect(Collectors.toList());
         assertEquals(1, result.size());
         assertEquals("apple", result.get(0));
+    }
+
+    @Test
+    public void countTest() {
+        List<String> stringCollection = new ArrayList<>();
+        stringCollection.add("ddd2");
+        stringCollection.add("aaa2");
+        long startsWithB =
+                stringCollection
+                        .stream()
+                        .filter((s) -> s.startsWith("b"))
+                        .count();
+
+        System.out.println(startsWithB);    // 3
+    }
+
+    @Test
+    public void matchTest() {
+        List<String> stringCollection = new ArrayList<>();
+        stringCollection.add("ddd2");
+        stringCollection.add("aaa2");
+        boolean anyStartsWithA =
+                stringCollection
+                        .stream()
+                        .anyMatch((s) -> s.startsWith("a"));
+
+        System.out.println(anyStartsWithA);      // true
+
+        boolean allStartsWithA =
+                stringCollection
+                        .stream()
+                        .allMatch((s) -> s.startsWith("a"));
+
+        System.out.println(allStartsWithA);      // false
+
+        boolean noneStartsWithZ =
+                stringCollection
+                        .stream()
+                        .noneMatch((s) -> s.startsWith("z"));
+
+        System.out.println(noneStartsWithZ);      // true
     }
 
     @Test
