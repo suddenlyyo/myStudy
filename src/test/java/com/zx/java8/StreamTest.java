@@ -32,6 +32,15 @@ public class StreamTest {
     }
 
     @Test
+    public void groupByTest() {
+        List<User> userList = Stream.of(JMockData.mock(User.class), JMockData.mock(User.class), JMockData.mock(User.class)).collect(Collectors.toList());
+        Map<String, List<User>> map = userList.stream().collect(Collectors.groupingBy(User::getName));
+        map.forEach((s, users) -> {
+            System.out.printf("key is %s,value is %s%n", s, users);
+        });
+    }
+
+    @Test
     public void countTest() {
         List<String> stringCollection = new ArrayList<>();
         stringCollection.add("ddd2");
@@ -70,15 +79,6 @@ public class StreamTest {
                         .noneMatch((s) -> s.startsWith("z"));
 
         System.out.println(noneStartsWithZ);      // true
-    }
-
-    @Test
-    public void groupByTest() {
-        List<User> userList = Stream.of(JMockData.mock(User.class), JMockData.mock(User.class), JMockData.mock(User.class)).collect(Collectors.toList());
-        Map<String, List<User>> map = userList.stream().collect(Collectors.groupingBy(User::getName));
-        map.forEach((s, users) -> {
-            System.out.printf("key is %s,value is %s%n", s, users);
-        });
     }
 
     @Test
