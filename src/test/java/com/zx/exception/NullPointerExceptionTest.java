@@ -29,6 +29,7 @@ public class NullPointerExceptionTest {
         System.out.println(optionalStr.orElse("default"));
 
     }
+
     /**
      * 引用类型：使用Objects工具判断空指针
      */

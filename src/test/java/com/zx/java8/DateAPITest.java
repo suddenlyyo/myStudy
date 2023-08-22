@@ -212,10 +212,10 @@ public class DateAPITest {
         ZoneOffset offset = ZoneOffset.of("+08:00");
         // 另外，也可以通过静态方法 ZoneOffset.UTC 获取表示零偏移量的实例。
         // 使用 ZoneOffset 可以将本地时间转换为 UTC 时间或者相反，例如：
-         // 将本地时间转换为 UTC 时间
+        // 将本地时间转换为 UTC 时间
         OffsetDateTime localTime = OffsetDateTime.now();
         OffsetDateTime utcTime = localTime.withOffsetSameInstant(ZoneOffset.UTC);
-         // 将 UTC 时间转换为本地时间
+        // 将 UTC 时间转换为本地时间
         OffsetDateTime now = OffsetDateTime.now(ZoneOffset.UTC);
         OffsetDateTime offsetDateTime = utcTime.withOffsetSameInstant(ZoneOffset.ofHours(8));
     }

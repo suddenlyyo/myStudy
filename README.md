@@ -1,5 +1,19 @@
 # 不明白的代码demo
 
+## Java 项目中包 domain、entity、model 的区别
+
+Entity
+一般情况下此结构与数据库结构一一对应，作为程序与数据库的映射桥梁。
+
+Model
+针对某一个业务需求，组合或是过滤一组数据。
+
+Domain
+一般是一组数据组合，包含某一个大业务逻辑的所有数据集合。
+
+ps：model 和 domain 概念比较重合，都是对业务的数据抽象，主要区别是 model 更多用在传统的MVC结构中，domain
+更多的使用在微服务架构或是DDD原则设计的项目中。也可以按照domain比model范围更大的角度来理解。实际使用中，如果项目不是特别大，可以model或domain二选一。
+
 ## junit4和junit5 对比
 
 | 特征               | JUNIT 4        | JUNIT 5        |

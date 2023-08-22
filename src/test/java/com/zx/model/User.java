@@ -1,4 +1,4 @@
-package com.zx.modle;
+package com.zx.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,6 +16,6 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Data
 public class User implements Serializable {
-    private  String name;
-    private  Integer sex;
+    private String name;
+    private Integer sex;
 }

@@ -13,12 +13,12 @@ import java.util.Set;
  * @create: 2023-07-04 11:44
  */
 
-public class JedisTest{
+public class JedisTest {
 
     @Test
     public void baseTest() {
-        try (Jedis jedis =  new Jedis("127.0.0.1", 6379)) {
-            System.out.println("redis如何存在key则不操作，否则设置：" + jedis.setnx("keys","values"));
+        try (Jedis jedis = new Jedis("127.0.0.1", 6379)) {
+            System.out.println("redis如何存在key则不操作，否则设置：" + jedis.setnx("keys", "values"));
             System.out.println("判断某个键是否存在：" + jedis.exists("username"));
             System.out.println("新增<'username','ly'>的键值对：" + jedis.set("username", "ly"));
             System.out.println("新增<'password','123456'>的键值对：" + jedis.set("password", "123456"));

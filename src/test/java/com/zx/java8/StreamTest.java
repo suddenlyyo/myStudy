@@ -1,7 +1,7 @@
 package com.zx.java8;
 
 import com.github.jsonzou.jmockdata.JMockData;
-import com.zx.modle.User;
+import com.zx.model.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.util.StringUtils;
 
