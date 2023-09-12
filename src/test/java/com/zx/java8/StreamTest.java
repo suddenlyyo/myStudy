@@ -35,9 +35,7 @@ public class StreamTest {
     public void groupByTest() {
         List<User> userList = Stream.of(JMockData.mock(User.class), JMockData.mock(User.class), JMockData.mock(User.class)).collect(Collectors.toList());
         Map<String, List<User>> map = userList.stream().collect(Collectors.groupingBy(User::getName));
-        map.forEach((s, users) -> {
-            System.out.printf("key is %s,value is %s%n", s, users);
-        });
+        map.forEach((s, users) -> System.out.printf("key is %s,value is %s%n", s, users));
     }
 
     @Test

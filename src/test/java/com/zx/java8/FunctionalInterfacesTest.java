@@ -6,7 +6,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 /**
@@ -59,4 +62,32 @@ public class FunctionalInterfacesTest {
         double rand = randomDouble.get(); // 产生一个随机数
     }
 
+    @Test
+    @DisplayName("Predicate Test")
+    public void predicateTest() {
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+        // 使用Lambda表达式定义一个判断偶数的Predicate
+        Predicate<Integer> evenNumbers = (n) -> n % 2 == 0;
+        // 使用filter方法过滤偶数并打印结果
+        numbers.stream().filter(evenNumbers).forEach(System.out::println);
+    }
+
+    @Test
+    @DisplayName("Predicate and Test")
+    public void predicateAndTest() {
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+        // 定义两个Predicate：判断是否是偶数和判断是否大于2
+        Predicate<Integer> evenNumbers = (n) -> n % 2 == 0;
+        Predicate<Integer> greaterThanTwo = (n) -> n > 2;
+        // 使用and连接两个Predicate，过滤偶数且大于2的数字并打印结果
+        numbers.stream().filter(evenNumbers.and(greaterThanTwo)).forEach(System.out::println);
+    }
+
+    @Test
+    @DisplayName("Predicate isEqual Test")
+    public void predicateIsEqualTest() {
+        Predicate<String> isEqual = Predicate.isEqual("Hello");
+        boolean result = isEqual.test("Hello");  // result will be true
+        System.out.println(result);
+    }
 }
