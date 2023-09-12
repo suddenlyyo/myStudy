@@ -149,4 +149,18 @@ public class StreamTest {
         // 输出每个单词
         words.stream().filter(str -> !StringUtils.isEmpty(str)).forEach(System.out::println);
     }
+
+    @Test
+    public void limitTest() {
+        List<String> words = Arrays.asList("apple", "banana", "cherry", "date");
+        List<String> collect = words.stream().limit(3).collect(Collectors.toList());
+        collect.forEach(System.out::println);
+    }
+
+    @Test
+    public void skipTest() {
+        List<String> words = Arrays.asList("apple", "banana", "cherry", "date");
+        List<String> collect = words.stream().skip(3).collect(Collectors.toList());
+        collect.forEach(System.out::println);
+    }
 }
