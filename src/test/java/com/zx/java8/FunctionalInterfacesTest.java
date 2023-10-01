@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
@@ -90,4 +91,29 @@ public class FunctionalInterfacesTest {
         boolean result = isEqual.test("Hello");  // result will be true
         System.out.println(result);
     }
+
+    @Test
+    @DisplayName("Function Test")
+    public void functionTest() {
+
+        //Function接口提供了两个方法：compose和andThen，用于组合多个函数。
+        //compose方法用于将多个函数组合成一个函数，从右到左执行。即先执行最右边的函数，并将其结果作为参数传递给左边的函数。
+        //andThen方法用于将多个函数组合成一个函数，从左到右执行。即先执行最左边的函数，并将其结果作为参数传递给右边的函数。
+
+        Function<Integer, Integer> doubleNumber = x -> x * 2;
+        Function<Integer, Integer> increment = x -> x + 1;
+
+        // 使用compose方法组合函数
+        Function<Integer, Integer> composed = increment.compose(doubleNumber);
+        System.out.println("Composed: " + composed.apply(5)); // 输出: Composed: 11
+
+        // 使用andThen方法组合函数
+        Function<Integer, Integer> andThen = doubleNumber.andThen(increment);
+        System.out.println("AndThen: " + andThen.apply(5)); // 输出: AndThen: 11
+
+    }
+
+
 }
+
+
