@@ -1,4 +1,4 @@
-package com.zx.net;
+package com.zx.net.tcp;
 
 import java.io.BufferedReader;
 import java.io.IOException;
