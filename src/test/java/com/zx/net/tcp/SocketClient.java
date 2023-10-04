@@ -14,18 +14,16 @@ import java.net.Socket;
  */
 public class SocketClient {
     public static void main(String[] args) throws IOException {
-        Socket socket = new Socket("localhost", 8888); //连接到localhost的8888端口
-        System.out.println("Connected to server");
-
-        BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-
-        out.println("Hello, Server!");
-        String response = in.readLine();
-        System.out.println("Received: " + response);
-
-        in.close();
-        out.close();
-        socket.close();
+        try (Socket socket = new Socket("localhost", 8888)) {
+            System.out.println("Connected to server");
+            PrintWriter out;
+            try (BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
+                out = new PrintWriter(socket.getOutputStream(), true);
+                out.println("Hello, Server!");
+                String response = in.readLine();
+                System.out.println("Received: " + response);
+            }
+            out.close();
+        }
     }
 }
