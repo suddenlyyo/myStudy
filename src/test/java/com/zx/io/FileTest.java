@@ -98,7 +98,7 @@ public class FileTest {
         //使用对象输出流将该对象序列化到文件“User.txt”中
         try (FileOutputStream fileOut = new FileOutputStream(path + "User.txt");
              ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
-            out.writeObject(user);
+             out.writeObject(user);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -115,8 +115,8 @@ public class FileTest {
         User user = null;
         try (FileInputStream fileIn = new FileInputStream(path + "User.txt");
              ObjectInputStream in = new ObjectInputStream(fileIn)) {
-            user = (User) in.readObject();
-            System.out.println(user);
+             user = (User) in.readObject();
+             System.out.println(user);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }

@@ -10,7 +10,7 @@ import java.net.*;
  * @create: 2023-10-04 00:39
  */
 public class UDPClient {
-    public static void main(String[] args){
+    public static void main(String[] args) {
         //创建客户端DatagramSocket，指定端口号
         try (DatagramSocket clientSocket = new DatagramSocket(8800)) {
             //定义要发送的数据
