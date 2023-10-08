@@ -3,13 +3,14 @@ package com.zx.java8;
 
 import org.junit.jupiter.api.Test;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.time.zone.ZoneRules;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * @program: myStudy
@@ -18,6 +19,18 @@ import java.util.*;
  * @create: 2023-06-03 10:15
  */
 public class DateAPITest {
+
+    public static final String TIME_PATTERN = "HH:mm";
+
+    public static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+
+    public static final String DATE_FORMAT_STR = "yyyyMMddHHmmss";
+
+    public static final String YEAR_FORMAT = "yyyy-MM-dd";
+
+    public static final String YEAR_NO_SPIT_FORMAT = "yyyyMMdd";
+
+    public static final String DATE_TIME_PATTERN = "HHmmss";
 
     //region    Java8 Date API的新特性包括：
 //    LocalDate、LocalTime和LocalDateTime类，用于处理日期和时间，支持时区和日历系统。
@@ -58,7 +71,19 @@ public class DateAPITest {
         String dateString = "2022-01-01";
         LocalDate newYear = LocalDate.parse(dateString);
     }
-
+    @Test
+    public void computeStartAndEndOfMonth() {
+        String whatMonth = "202310";
+        int year = Integer.parseInt(whatMonth.substring(0, 4));
+        int month = Integer.parseInt(whatMonth.substring(4, 6));
+        // 获取指定月份的起始日期
+        LocalDate startOfMonth = LocalDate.of(year, Month.of(month), 1);
+        // 获取指定月份的结束日期，起始日期加上获取本月的最大长度-1就是最后一天
+        int compute = Month.of(month).maxLength();
+        LocalDate endOfMonth = startOfMonth.plusDays(compute - 1);
+        System.out.println("Start of month: " + startOfMonth);
+        System.out.println("End of month: " + endOfMonth);
+    }
     @Test
     public void getBeginTimeTest() {
         String date = "2022-04-01";
@@ -135,7 +160,7 @@ public class DateAPITest {
         String yearMonth = "202310";
         int year = Integer.parseInt(yearMonth.substring(0, 4));
         int month = Integer.parseInt(yearMonth.substring(4, 6));
-        List<String> fullDayList = getFullDayList(month, year, "yyyy-MM-dd", true);
+        List<String> fullDayList = getFullDayList(month, year, YEAR_FORMAT, true);
         fullDayList.forEach(System.out::println);
     }
 
@@ -200,7 +225,7 @@ public class DateAPITest {
         //创建指定的日期时间
         LocalDateTime dateTime = LocalDateTime.of(2022, 1, 1, 0, 0);
         //格式化输出日期时间
-        String formattedDateTime = dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        String formattedDateTime = dateTime.format(DateTimeFormatter.ofPattern(DATE_FORMAT));
         System.out.println(formattedDateTime);
         //转换成时间戳
         //因为Java中的时间戳（Unix时间戳）是从1970年1月1日00:00:00 UTC开始计算的，而中国使用的是东八区时间（UTC+8），
