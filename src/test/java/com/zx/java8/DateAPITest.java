@@ -3,12 +3,13 @@ package com.zx.java8;
 
 import org.junit.jupiter.api.Test;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.time.zone.ZoneRules;
-import java.util.Date;
-import java.util.Locale;
+import java.util.*;
 
 /**
  * @program: myStudy
@@ -111,6 +112,86 @@ public class DateAPITest {
         boolean isEqual = time1.equals(time2);
     }
 
+    /**
+     * LocalDate转日期字符串
+     *
+     * @param localDate 需要格式化的localDate
+     * @param pattern   匹配的格式
+     * @return
+     * @author: zhou  xun
+     * @since: 2023-10-08
+     */
+    public static String localDateToDateStr(LocalDate localDate, String pattern) {
+        // 创建一个 DateTimeFormatter 对象，用于指定日期的格式
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+        // 使用 formatter 将 LocalDate 转换为字符串
+        String dateString = localDate.format(formatter);
+        return dateString;
+    }
+
+
+    @Test
+    public void getDateListByMonth() {
+        String yearMonth = "202310";
+        int year = Integer.parseInt(yearMonth.substring(0, 4));
+        int month = Integer.parseInt(yearMonth.substring(4, 6));
+        List<String> fullDayList = getFullDayList(month, year, "yyyy-MM-dd", true);
+        fullDayList.forEach(System.out::println);
+    }
+
+    /**
+     * 获取指定月份的日期列表，注意排除小于当天的日期
+     *
+     * @param month                 月份
+     * @param year                  年份
+     * @param pattern               匹配的格式
+     * @param isLessThanCurrentDate 是否小于当前日期
+     * @return
+     * @author: zhou  xun
+     * @since: 2023-10-08
+     */
+    private static List<String> getFullDayList(int month, int year, String pattern, boolean isLessThanCurrentDate) {
+        //一个月最多31天
+        List<String> fullDayList = new ArrayList<>(32);
+        //获取本月的最大长度
+        int daysInMonth = Month.of(month).maxLength();
+        //获取本月第一天
+        LocalDate startOfMonth = LocalDate.of(year, Month.of(month), 1);
+        //获取当前日期
+        LocalDate currentDate = LocalDate.now();
+        for (int i = 0; i < daysInMonth; i++) {
+            LocalDate localDate = startOfMonth.plusDays(i);
+            if (isLessThanCurrentDate) {
+                //判断当前日期是否大于日期
+                if (currentDate.isAfter(localDate)) {
+                    String dateStr = localDateToDateStr(localDate, pattern);
+                    fullDayList.add(dateStr);
+                }
+            } else {
+                String dateStr = localDateToDateStr(localDate, pattern);
+                fullDayList.add(dateStr);
+            }
+        }
+        return fullDayList;
+    }
+
+    /**
+     * 日期格式化
+     *
+     * @param dateStr 需要格式化的年月日时分秒字符串
+     * @param pattern 匹配的格式
+     * @return
+     * @author: zhou  xun
+     * @since: 2023-10-08
+     */
+    public static Date dateStrToDateTime(String dateStr, String pattern) {
+        ZoneId zoneId = ZoneId.systemDefault();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+        LocalDateTime localDateTime = LocalDate.parse(dateStr, formatter).atStartOfDay();
+        ZonedDateTime zdt = localDateTime.atZone(zoneId);
+        return Date.from(zdt.toInstant());
+    }
+
     //endregion
     //region LocalDateTime测试
     @Test
@@ -133,6 +214,23 @@ public class DateAPITest {
         LocalDateTime otherDateTime = LocalDateTime.of(2022, 1, 2, 0, 0);
         boolean isBefore = dateTime.isBefore(otherDateTime);
         boolean isAfter = dateTime.isAfter(otherDateTime);
+    }
+
+    /**
+     * 日期时间格式化
+     *
+     * @param dateTimeStr 需要格式化的年月日时分秒字符串
+     * @param pattern     匹配的格式
+     * @return
+     * @author: zhou  xun
+     * @since: 2023-10-08
+     */
+    public static Date dateTimeStrToDateTime(String dateTimeStr, String pattern) {
+        ZoneId zoneId = ZoneId.systemDefault();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+        LocalDateTime localDateTime = LocalDateTime.parse(dateTimeStr, formatter);
+        ZonedDateTime zdt = localDateTime.atZone(zoneId);
+        return Date.from(zdt.toInstant());
     }
 
     //endregion
@@ -222,37 +320,5 @@ public class DateAPITest {
     }
     //endregion
 
-    /**
-     * 日期时间格式化
-     *
-     * @param dateTimeStr 需要格式化的年月日时分秒字符串
-     * @param pattern     匹配的格式
-     * @return
-     * @author: zhou  xun
-     * @since: 2023-04-25
-     */
-    public static Date dateTimeStrToDateTime(String dateTimeStr, String pattern) {
-        ZoneId zoneId = ZoneId.systemDefault();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
-        LocalDateTime localDateTime = LocalDateTime.parse(dateTimeStr, formatter);
-        ZonedDateTime zdt = localDateTime.atZone(zoneId);
-        return Date.from(zdt.toInstant());
-    }
 
-    /**
-     * 日期格式化
-     *
-     * @param dateStr 需要格式化的年月日时分秒字符串
-     * @param pattern 匹配的格式
-     * @return
-     * @author: zhou  xun
-     * @since: 2023-09-15
-     */
-    public static Date dateStrToDateTime(String dateStr, String pattern) {
-        ZoneId zoneId = ZoneId.systemDefault();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
-        LocalDateTime localDateTime = LocalDate.parse(dateStr, formatter).atStartOfDay();
-        ZonedDateTime zdt = localDateTime.atZone(zoneId);
-        return Date.from(zdt.toInstant());
-    }
 }
