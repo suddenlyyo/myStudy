@@ -7,6 +7,7 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.time.zone.ZoneRules;
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -220,4 +221,38 @@ public class DateAPITest {
         OffsetDateTime offsetDateTime = utcTime.withOffsetSameInstant(ZoneOffset.ofHours(8));
     }
     //endregion
+
+    /**
+     * 日期时间格式化
+     *
+     * @param dateTimeStr 需要格式化的年月日时分秒字符串
+     * @param pattern     匹配的格式
+     * @return
+     * @author: zhou  xun
+     * @since: 2023-04-25
+     */
+    public static Date dateTimeStrToDateTime(String dateTimeStr, String pattern) {
+        ZoneId zoneId = ZoneId.systemDefault();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+        LocalDateTime localDateTime = LocalDateTime.parse(dateTimeStr, formatter);
+        ZonedDateTime zdt = localDateTime.atZone(zoneId);
+        return Date.from(zdt.toInstant());
+    }
+
+    /**
+     * 日期格式化
+     *
+     * @param dateStr 需要格式化的年月日时分秒字符串
+     * @param pattern 匹配的格式
+     * @return
+     * @author: zhou  xun
+     * @since: 2023-09-15
+     */
+    public static Date dateStrToDateTime(String dateStr, String pattern) {
+        ZoneId zoneId = ZoneId.systemDefault();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+        LocalDateTime localDateTime = LocalDate.parse(dateStr, formatter).atStartOfDay();
+        ZonedDateTime zdt = localDateTime.atZone(zoneId);
+        return Date.from(zdt.toInstant());
+    }
 }
