@@ -30,6 +30,9 @@ public class AsyncTaskTest {
     @Test
     public void futureTest() {
         ExecutorService executor = Executors.newFixedThreadPool(10);
+        //Callable是一个接口，它定义了一个可以返回结果的方法。具体来说，Callable接口中的唯一方法是call()，该方法可以抛出异常并返回一个结果。
+        //在Java中，Callable接口常用于并发编程，比如在ExecutorService框架中。
+        // 通过将Callable接口的实现类传递给ExecutorService的submit()方法，可以获得一个Future对象，该对象可以用来获取Callable的执行结果
         Future<Integer> future = executor.submit(() -> {
             // 异步任务逻辑，返回计算结果
             return 123;
@@ -41,10 +44,11 @@ public class AsyncTaskTest {
             System.out.println("Future的结果是: " + result);
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
+        }finally {
+            // 关闭线程池
+            executor.shutdown();
         }
 
-        // 关闭线程池
-        executor.shutdown();
     }
 
     @DisplayName("CompletableFuture Test")
@@ -62,26 +66,6 @@ public class AsyncTaskTest {
             e.printStackTrace();
         }
     }
-
-    @DisplayName("CompletableFuture Test1")
-    @Test
-    public void completableFutureTest1() {
-        ExecutorService executor = Executors.newFixedThreadPool(10);
-        Callable<Integer> callable = () -> {
-            // 异步任务逻辑，返回计算结果
-            return 123;
-        };
-        Future<Integer> future = executor.submit(callable);
-        try {
-            Integer result = future.get();  // 获取异步计算的结果
-            System.out.println("CompletableFuture的结果是: " + result);
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        } finally {
-            executor.shutdown();  // 关闭线程池
-        }
-    }
-
     @DisplayName("CompletableFuture Test2")
     @Test
     public void completableFutureTest2() {
