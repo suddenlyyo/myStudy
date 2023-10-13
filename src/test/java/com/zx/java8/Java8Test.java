@@ -9,13 +9,14 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 /**
@@ -52,11 +53,36 @@ public class Java8Test {
     @Test
     public void testOptional() {
         // 使用 Optional 类避免空指针异常
-        Map<String, String> map = new HashMap<>();
-        map.put("key", "value");
-        Optional<String> value = Optional.ofNullable(map.get("key"));
-        assertTrue(value.isPresent());
-        assertEquals("value", value.get());
+
+        // 使用 of() 创建一个包含非空值的 Optional
+        Optional<String> optional = Optional.of("Hello, World!");
+        System.out.println(optional);
+
+        // 使用 ofNullable() 创建一个包含可能为空的 Optional
+        Optional<String> optionalNullable = Optional.ofNullable(null);
+        System.out.println(optionalNullable);
+
+        // 使用 ofNullable() 创建一个包含可能为空的 Optional
+        String str = "Hello, World!";
+        Optional<String> optionalWithNullableValue = Optional.ofNullable(str);
+        System.out.println(optionalWithNullableValue);
+        //region java 9 特性
+        // 使用 or() 返回第一个非空参数，如果所有参数都为空，返回默认值
+        System.out.println(Optional.ofNullable(null).or(() -> Optional.of("Default Value")));
+
+        // 使用 or() 返回第一个非空参数，如果所有参数都为空，返回默认值
+        System.out.println(Optional.empty().or(() -> Optional.of("Default Value")));
+        //endregion
+        // 使用 orElse() 返回第一个非空参数，如果所有参数都为空，返回默认值
+        System.out.println(Optional.empty().orElse("Default Value"));
+
+        // 使用 ifPresent() 对值进行操作，如果值存在的话
+        Optional<String> optionalIfPresent = Optional.of("Hello, World!");
+        optionalIfPresent.ifPresent(System.out::println);
+
+        // 使用 filter() 过滤出满足条件的 Optional
+        Optional<String> optionalFilter = Optional.of("Hello, World!").filter(s -> s.startsWith("H"));
+        System.out.println(optionalFilter);
     }
 
     @Test
