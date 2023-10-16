@@ -1,22 +1,19 @@
 package com.zx.exception;
 
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-/**
- * @program: myStudy
- * @description: 空指针判断测试
- * @author: zhou  xun
- * @create: 2022-09-21 09:27
- */
-@Slf4j
+
 public class NullPointerExceptionTest {
+    private static final Logger log = LoggerFactory.getLogger(NullPointerExceptionTest.class);
+
     /**
      * 引用类型：直接使用null判断空指针
      */

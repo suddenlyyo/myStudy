@@ -1,6 +1,7 @@
 package com.zx.config;
 
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,9 +16,8 @@ import redis.clients.jedis.JedisPoolConfig;
  * @create: 2023-07-04 14:19
  */
 @Configuration
-@Slf4j
 public class RedisConfig {
-
+    private static final Logger log = LoggerFactory.getLogger(RedisConfig.class);
     @Value("${spring.redis.host}")
     private String host;
 
